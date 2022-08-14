@@ -142,9 +142,12 @@ const promptQuestions = () => {
 
 // // TODO: Create a function to write README file
 // function writeToFile(fileName, data) {}
-
+const writeFile = readmeContent => {}
 // // TODO: Create a function to initialize app
 // function init() {}
 
 // Function call to initialize app
-promptQuestions();
+promptQuestions()
+.then((questionResponses) => {
+    return generateFile(questionResponses);
+});
