@@ -116,7 +116,7 @@ const promptQuestions = () => {
         },
         {
             type: 'input',
-            name: 'contribution',
+            name: 'contribute',
             message: 'Please proved contribution guidelines for this project (if applicable):',
             when: ({confirmContribute}) => {
                 if (confirmContribute) {

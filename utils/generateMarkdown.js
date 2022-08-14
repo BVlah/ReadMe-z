@@ -1,4 +1,4 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Generate a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   if (license === "None") {
@@ -10,7 +10,7 @@ function renderLicenseBadge(license) {
   } 
 }
 
-// TODO: Create a function that returns the license section of README
+// Generate license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   if (license === "None") {
@@ -63,12 +63,25 @@ function renderLicenseSection(license) {
   `
 }
 
-// // TODO: Create a function to generate markdown for README
-// function generateMarkdown(data) {
-//   return `# ${data.title}
+// Add Conditional Table of Contents
+const testTOC = testInfo => {
+  if (!testInfo) {
+    return '';
+  }
+  return `
+    [Tests](#tests)
+  `
+} 
 
-// `;
-// }
+const contributeTOC = contributeInfo => {
+  if (!contributeInfo) {
+    return '';
+  }
+  return `
+    [How to Contribute](#how-to-contribute)
+  `
+} 
+
 
 // Generate Tests Section
 const generateTest = testInfo => {
@@ -80,7 +93,7 @@ const generateTest = testInfo => {
     ${testInfo}
   `
 };
-
+// Generate Contribute Section
 const generateContribute = contributeInfo => {
   if (!contributeInfo) {
     return '';
@@ -92,5 +105,37 @@ const generateContribute = contributeInfo => {
 };
 
 module.exports = questionResponses => {
-  const {github, email, title, description, };
+  const {github, email, title, description, installation, usage, test, contribute, license} = questionResponses;
+  return `
+    # ${title}
+    ${renderLicenseBadge(license)}
+
+    ## Description
+    ${description}
+
+    ## Table of Contents
+    [Installation Instructions](#installation-instructions)
+    [Usage Instructions](#usage-instructions)
+    ${testTOC(test)}
+    ${contributeTOC(contribute)}
+    [Questions](#questions)
+    [License](#License)
+
+    ## Installation Instructions
+    ${installation}
+
+    ## Usage Instructions
+    ${usage}
+
+    ${generateTest(test)}
+
+    ${generateContribute(contribute)}
+
+    ## Questions
+    For more information about the developer, check out my [Github Profile](https://github.com/${github})
+    For additional questions, please reach out to me via email: ${email}
+
+    ${renderLicenseSection(license)}
+
+  `;
 };
