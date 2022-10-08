@@ -30,7 +30,8 @@ const promptQuestions = () => {
             name: 'email',
             message: 'Please enter your email address:',
             validate: emailInput => {
-                if (emailInput) {
+                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput)
+                if (valid) {
                     return true;
                 } else {
                     console.log('Please enter an email address!');
