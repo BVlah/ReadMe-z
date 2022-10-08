@@ -91,40 +91,14 @@ const promptQuestions = () => {
             }
         },
         {
-            type: 'confirm',
-            name: 'confirmTest',
-            message: 'Would you like to provide tests for your application?',
-            default: false
-        },
-        {
             type: 'input',
             name: 'test',
-            message: 'Please proved instructions on how to test this project:',
-            when: ({confirmTest}) => {
-                if (confirmTest) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'confirm',
-            name: 'confirmContribute',
-            message: 'Would you like other developers to contribute to this project?',
-            default: false
+            message: 'Please proved instructions on how to test this project (if applicable):',
         },
         {
             type: 'input',
             name: 'contribute',
             message: 'Please proved contribution guidelines for this project (if applicable):',
-            when: ({confirmContribute}) => {
-                if (confirmContribute) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
         },
         {
             type: 'list',
@@ -141,13 +115,18 @@ const promptQuestions = () => {
 
 
 // // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-const writeFile = readmeContent => {}
-// // TODO: Create a function to initialize app
-// function init() {}
+const writeToFile = readmeContent => {
+    fs.writeFile('./dist/README.md', readmeContent, err => {
+        if (err) throw err;
+        console.log('README file generated!');
+    });
+};
 
 // Function call to initialize app
 promptQuestions()
-.then((questionResponses) => {
+.then(questionResponses => {
     return generateFile(questionResponses);
+})
+.then(readmeContent => {
+    writeToFile(readmeContent)
 });
