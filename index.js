@@ -34,7 +34,7 @@ const promptQuestions = () => {
                 if (valid) {
                     return true;
                 } else {
-                    console.log('Please enter an email address!');
+                    console.log('Please enter a valid email address!');
                     return false;
                 }
             }
